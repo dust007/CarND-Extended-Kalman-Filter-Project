@@ -1,4 +1,5 @@
 #include "kalman_filter.h"
+#include <iostream>
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -29,6 +30,7 @@ void KalmanFilter::Predict() {
   MatrixXd Ft;
   Ft = F_.transpose();
   P_ = F_ * P_ * Ft + Q_;
+
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
@@ -51,6 +53,7 @@ void KalmanFilter::Update(const VectorXd &z) {
   int x_size = x_.size();
   MatrixXd I = MatrixXd::Identity(x_size, x_size);
   P_ = (I - K * H_) * P_;
+
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
